@@ -1,0 +1,30 @@
+h1,
+h2,
+h3 {
+    text-align: center;
+    background: white;
+    padding: 10px;
+    /* margin: 0, auto; */
+    margin-left: 40%;
+    width: 20%;
+    border: 2px dotted red;
+}
+
+
+
+.mainsection {
+    display: flex;
+    justify-content: center;
+}
+
+.container {
+    margin: 20px;
+    padding: 10px;
+    border: 2px dotted red;
+    width: 25%;
+    background: white;
+}
+
+body {
+    background-image: url('https://www.balanceofnature.com/wp-content/uploads/2014/10/fruits.jpg');
+}
