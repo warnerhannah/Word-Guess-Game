@@ -5,12 +5,18 @@ var wordDashes = document.getElementById("currentWordDashes");
 var remainingGuesses = document.getElementById("guessesRemaining");
 var lettersGuessed = document.getElementById("guessedLetters");
 
-var wordBank = ["apple", "pear"];
+var wordBank = ["peach", "pear", "orange", "lime", "mango"];
 
 
 // Computer chooses which word to play 
-var correctWord = wordBank[Math.floor(Math.random() * wordBank.length)];
-console.log(correctWord);
+function computerGuess() {
+    var word = wordBank[Math.floor(Math.random() * wordBank.length)];
+    console.log(word);
+    return word;
+}
+
+
+correctWord = computerGuess();
 
 // Create Dashes 
 var dashesArray = [];
@@ -29,14 +35,15 @@ winsTally.textContent = 0;
 var usedLettersArray = [];
 
 //Amount of remaining guesses
-remainingGuesses.textContent = 10;
-guesses = remainingGuesses.textContent
+var guesses = 10;
+remainingGuesses.textContent = guesses;
 
 //when a key is pushed
 document.onkeyup = function (event) {
-    var userGuess = event.key;
-    if ((lettersRemaining > 0) && (guesses > 0)) {
+
+    if (lettersRemaining > 0 && guesses > 0) {
         playGame();
+
     }
 
     else if (lettersRemaining === 0) {
@@ -50,16 +57,28 @@ document.onkeyup = function (event) {
 
 }
 
+function replaceDashWithLetter(letter, word) {
+    for (var i = 0; i < word.length; i++) {
+        if (letter === word[i]) {
+            console.log("letter from word", letter);
+            dashesArray[i] = letter;
+        }
+    }
+    wordDashes.textContent = dashesArray.join(" ")
+}
+
 // if they can continue to play
 function playGame() {
     var userGuess = event.key;
+    console.log(dashesArray)
     alert("User guess: " + userGuess);
-    
+
     if (correctWord.includes(userGuess)) {
-        alert("You guessed correctly!")
-        dashesArray[i] = userGuess;
-        wordDashes.textContent = dashesArray.join(" ");
+        replaceDashWithLetter(userGuess, correctWord);
         lettersRemaining--;
+        usedLettersArray.push(userGuess);
+        lettersGuessed.textContent = usedLettersArray;
+        alert("You guessed correctly!")
     }
 
     else {
@@ -68,8 +87,8 @@ function playGame() {
         lettersGuessed.textContent = usedLettersArray;
     }
 
-    remainingGuesses.textContent--;
-    console.log(remainingGuesses);
+    guesses--;
+    remainingGuesses.textContent = guesses;
     console.log(guesses);
 
     if (remainingGuesses === 0) {
@@ -79,18 +98,38 @@ function playGame() {
     else if (lettersRemaining === 0) {
         winGame();
     }
-
 }
 
 // if they win the game & get the word
 function winGame() {
-    alert("Congratulations! You Won! The correct word was " + correctWord + ".");
+    nameFruit.textContent = correctWord;
     winsTally.textContent++;
+    alert("Congratulations! You Won! The correct word was " + correctWord + ".");
     resetGame()
 }
 
+function endGame() {
+    alert("Sorry, you lose! The correct word was " + correctWord + ".")
+    resetGame();
+}
+
+
 //reset the game
 function resetGame() {
-    guesses = 10;
+    
+    usedLettersArray = [];
+    lettersGuessed.textContent = usedLettersArray;
 
+    guesses = 10;
+    remainingGuesses.textContent = guesses;
+
+    correctWord = computerGuess();
+    
+    dashesArray= [];
+    for (var i = 0; i < correctWord.length; i++) {
+        dashesArray[i] = "_";
+    }
+    wordDashes.textContent = dashesArray.join(" ");
+
+    lettersRemaining = correctWord.length;
 }

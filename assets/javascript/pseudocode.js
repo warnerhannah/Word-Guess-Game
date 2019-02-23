@@ -1,13 +1,15 @@
 /*
-1. user guesses key
+
 2. computer picks a word
-3. if letter is in the word, 
-    -fill into blank space
-    -guesses remaining -1
-    -put letter into guessed letters
-4. if letter is not in the word,
-    -guesses remaining -1
-    -put letter into guessed letters
+2. user guesses key
+    -determine if a part of word or not
+    3. if letter is in the word, 
+        -fill into blank space
+        -guesses remaining -1
+        -put letter into guessed letters
+    4. if letter is not in the word,
+        -guesses remaining -1
+        -put letter into guessed letters
 5. repeat 
 6. if guesses remaining hits zero, game over
 7. if user guesses all letters/full word
