@@ -28,3 +28,7 @@ h3 {
 body {
     background-image: url('../images/background.jpg');
 }
+
+img {
+    width: 80%;
+}
